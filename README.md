@@ -324,8 +324,8 @@ Let's assume we have this string in memory:
 ajdeitk37adfna
 ```
 and we want to overwrite the 3rd "a" with "A". So we would call
-`kindaStableWrite("a", "A", 3)`
-What `kindaStableWrite` does is replace all "a"'s with "?" which I found to be a unique charackter on the stack. Well most of the time (I say most of the time because the values on the
+`kindaStableWrite("a", "A", 3)`.
+What `kindaStableWrite` does is replace all "a"'s with "?" which I found to be a unique character on the stack. Well most of the time (I say most of the time because the values on the
 stack are not stable and can change a lot especially with PIE enabled). Anyway we first overwrite all "a"'
 with "?"'s. Then we overwrite all "?"'s-1 with "a"'s again this results in the "a" that we actually want to
 overwrite being the only "?". And then we overwrite the only "?" with "A". I'm sure that there are some
