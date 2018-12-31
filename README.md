@@ -151,7 +151,7 @@ gdb-peda$ x/10gx 0x7fffffffe3b0
 0x7fffffffe400:	0x00007fffffffe410	0x0000000000000007
 0x7fffffffe410:	0x006563616c706572	0x0000555555556671
 ```
-We will try to overwrite the 4 bytes at 0x7fffffffe41c. They currently are
+We will try to overwrite the 4 bytes at `0x7fffffffe41c`. They currently are
 `0x55` which is "U" in ASCII. "U" is not defined in the alphabet thus will never be in String1 and since it is a printable ASCII char it is easy for us to enter it.
 
 ```
@@ -210,7 +210,7 @@ of addresses from the leak until I found one at `0x7e` bytes after String1 that 
 always exactly `0x20830` bytes larger than the base of libc.
 Now we have a way of calculating the base of libc but this works only for our local libc.
 To port this to work for the remote libc we first need to
-find out what's located 0x20830 after the base of our local libc.
+find out what's located `0x20830` after the base of our local libc.
 ```
 ~$ ldd stringmaster2|grep libc
 	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f52b73d2000)
@@ -222,7 +222,7 @@ find out what's located 0x20830 after the base of our local libc.
   2083e:	48 8b 05 cb 8e 3a 00 	mov    0x3a8ecb(%rip),%rax        # 3c9710 <argp_program_version_hook@@GLIBC_2.2.5+0x1b0>
   20845:	48 c1 c8 11          	ror    $0x11,%rax
 ```
-The instuctions at offset 0x20830 are
+The instuctions at offset `0x20830` are
 ```
 	mov    %eax,%edi
   callq  3a030 <exit@@GLIBC_2.2.5>
@@ -233,7 +233,7 @@ If we can find the offset at which these instructions are in the libc of the rem
    21b97:	89 c7                	mov    %eax,%edi
    21b99:	e8 82 15 02 00       	callq  43120 <exit@@GLIBC_2.2.5>
 ```
-Here it is, the remote offset is 0x21b97
+Here it is, the remote offset is `0x21b97`
 
 What we still need is a way to leak the return pointer so that we can `replace` the bytes in our actual return pointer with some other address that we want to jump to in order for us to take over the control flow of the program. Luckily the return ponter is also in our leak. The return pointer is exactly `0x6e` bytes after String1.
 
@@ -269,9 +269,9 @@ What we need:
 #### Info leak
 1. Trigger stack print
 
-2. Find the value thats exactly `0x79` bytes after string1  --> return pointer
+2. Find the value thats exactly `0x6e` bytes after string1  --> return pointer
 
-3. Find the value thats exactly `0x88` bytes after string1 and subtract `0x20830` from it --> libc base
+3. Find the value thats exactly `0x7e` bytes after string1 and subtract `0x20830` from it --> libc base
 
 
 Here is some code that does this
