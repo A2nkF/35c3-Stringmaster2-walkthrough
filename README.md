@@ -11,6 +11,7 @@ Just in case you want to follow along. I'm working in a Ubuntu16.04 VM with libc
 The challenge sever provides you with a zip archive as well as an IP and a port.
 
 The archive contains three files:
+
     - the stringmaster2 binary
     - the source code for stringmaster2
     - a libc
