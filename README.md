@@ -196,7 +196,7 @@ gijugolusq??????printeqfAAAA??0??V???fUUUU0RUUUUP?????eUUUU0XI??X????h????eUUUU?
 ```
 As you can see, the leak starts with String1 and ends with some environment variables which are stored on the stack.
 This indicates that we are leaking some stack data and this can be very handy to defeat ASLR and PIC.
-Since the leak starts with String1, it can only com from one of two locations: the first occurence of String1
+Since the leak starts with String1, it can only come from one of two locations: the first occurence of String1
 or the second. And a comparison of the area after the two occurences and the leak reveals that the the
 stack after the second is being leaked. So now we know what we leak but we still don't know what we can do with this.
 What we need is some value on the stack that has a static offset from the libc base. So as long as we are
