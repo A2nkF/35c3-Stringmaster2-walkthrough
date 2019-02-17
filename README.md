@@ -253,9 +253,9 @@ RELRO     : FULL
 ```
 We can ignore the cannary because we won't overflow the stack. And NX means that the Stack is marked
 Non-executable but our write primitive is way to instable to write shellcode to the stack anyway.
-PIE (Position Independent Code) means that the `__TEXT` segments loding address will be randomized each
-time we execute. And RELO: FULL means that the address of the GOT(Global Offset Table) will also be
-randomized thus we won't we able to just overwrite some entry in the GOT without leaking it first. Further
+PIE (Position Independent Executable) means that the `__TEXT` segments loding address will be randomized each
+time we execute. And RELRO: FULL means that the GOT(Global Offset Table) will be
+read only thus we won't we able to just overwrite some entry in the GOT. Further
 more we can assume that the remote server has ASLR (Address Space Layout Randomization) enabled so we will
 have to leak some libc addresses anyway in order to get libc's base for a ret2libc or Rop attack.
 
