@@ -257,7 +257,7 @@ PIE (Position Independent Executable) means that the `__TEXT` segments loding ad
 time we execute. And RELRO: FULL means that the GOT(Global Offset Table) will be
 read only thus we won't we able to just overwrite some entry in the GOT. Further
 more we can assume that the remote server has ASLR (Address Space Layout Randomization) enabled so we will
-have to leak some libc addresses anyway in order to get libc's base for a ret2libc or Rop attack.
+have to leak some libc addresses in order to get libc's base for a ret2libc or Rop attack.
 
 ### Structure
 
